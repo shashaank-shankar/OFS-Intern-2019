@@ -16,7 +16,7 @@ while True:
             print("Enter a number smaller than 1000!")
         else:
             if int(limit) == 1:
-                print("\nThe Fibonacci S equence for " + str(limit) + " is:")
+                print("\nThe Fibonacci Sequence for " + str(limit) + " is:")
                 print(num1)
             else:
                 print("\nThe Fibonacci Sequence for " + str(limit) + " is:")
