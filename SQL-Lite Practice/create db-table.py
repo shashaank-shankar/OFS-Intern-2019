@@ -15,7 +15,7 @@ def createTable ():
         "create table user(userid integer primary key, username text)"
     )
     con.commit()
-createTable()
+#createTable()
 print("\n")
 print("Create table:")
 selectTable("*")
@@ -27,7 +27,7 @@ def insertTable (entities):
     )
     con.commit()
 entities = [(1, "Shashaank"), (2, "Natalie"), (3, "Niyanth"), (4, "John"), (5, "Bob")]
-insertTable(entities)
+#insertTable(entities)
 print("Insert values:")
 selectTable("*")
 print("\n")
@@ -37,7 +37,7 @@ def updateTable ():
         'update user set username = "Mark" where userid = 5'
     )
     con.commit()
-updateTable()
+#updateTable()
 print("Update table:")
 selectTable("*")
 print("\n")
@@ -47,6 +47,6 @@ def deleteTable ():
         'delete from user where userid = 4'
     )
     con.commit()
-deleteTable()
+#deleteTable()
 print("Delete one row:")
 selectTable("*")
