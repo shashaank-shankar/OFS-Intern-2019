@@ -1,0 +1,5 @@
+color_set = set()
+color_set.add("White")
+print(color_set)
+color_set.update(["Red", "Blue"])
+print(color_set)
