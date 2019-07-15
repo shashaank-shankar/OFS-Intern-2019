@@ -1,4 +1,4 @@
-import TempConverter
+#import TempConverter
 import mysql.connector
 
 # connects file to database
@@ -66,8 +66,12 @@ def tempConvert (type, temperature):
 # adds all values to temperature_list_temp
 selectTable("*", "RECORD_TEMPERATURE")
 
-# isolates number
+# isolates number and appends to temperature_list
 temperaturelist_strip(temperature_list_temp)
 
+# prints temperature_reading column
+# print(temperature_list)
+
+# prints average temperature
 print("The average is "+ str(average(temperature_list)) + " degrees Farenheit.")
 print("It is also " + str(tempConvert('c', average(temperature_list))) + " degrees Celsius.")
