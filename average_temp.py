@@ -1,7 +1,6 @@
-#import TempConverter
 import mysql.connector
 
-# connects file to database
+# Connects this file to Temperature Database
 IOTdb = mysql.connector.connect(
   host="iotplatform.c66jtrv2jovs.us-east-1.rds.amazonaws.com",
   user="iotplatformusr",
@@ -9,36 +8,41 @@ IOTdb = mysql.connector.connect(
   database ="temperature_data_logger"
 )
 
+# What allows Python to execute SQL queries
 cursorObj = IOTdb.cursor()
 
-# list of all temperatures recorded
-temperature_list_temp = []
-# list w/ isolated numbers
-temperature_list = []
+# List of all values from a column (EX: Decimal('89.00'))
+column_values = []
+# List of all isolated values from a column (EX: '89.00')
+column_values_iso = []
 
-# 'columns' is what columns you want to select
 # 'tablename' is the name of the table
-def selectTable (columns, tablename):
+# 'columns' is what columns you want to select
+# 'list' is the list the values are appended to
+def selectTable (tablename, columns, list):
     cursorObj.execute(
         "select " + columns + " from " + tablename
     )
     records = cursorObj.fetchall()
-    #rows = list(records)
-    #print(records)
     for row in records:
-        temperature_list_temp.append(row[2])
-        #print(row)
+        list.append(row[2])
     IOTdb.commit()
 
-# isolates number from entry
-def temperaturelist_strip (list):
+# Adds all values from 'RECORD_TEMPERAURE' to column_values
+selectTable("RECORD_TEMPERATURE", "*", column_values)
+
+# Isolates value from 'list'
+# Appends value to 'list_append'
+def value_strip (list, list_append):
     for value in list:
         value = str(value)
         value.strip()
-        #print(value)
-        temperature_list.append(value)
+        list_append.append(value)
 
-# gets average of list
+# Isolates temperature from 'column_values' and appends to 'column_values_iso'
+value_strip(column_values, column_values_iso)
+
+# Returns average of values in 'list'
 def average (list):
     sum = 0
     count = 0
@@ -48,30 +52,21 @@ def average (list):
     average = round(sum/count, 2)
     return average
 
-# converts temperature
+# Prints average temperature of 'columns_values_iso' in F
+print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit.")
+
+# Converts temperature to either F or C
 def tempConvert (type, temperature):
     if type.upper() == "C":
-        # convert to C
+        # Converts temperature to C
         new_temp = (temperature - 32.0) * (5.0/9.0)
         new_temp = round(new_temp, 2)
-        #print("\n" + str(temperature) + "F is equal to " + str(new_temp) + "C.")
         return new_temp
     elif type.upper() == "F":
-         # convert to F
+         # Converts temperature to F
         new_temp = (temperature * (9.0/5.0)) + 32.0
         new_temp = round(new_temp, 2.0)
-        #print("\n" + str(temperature) + "C is equal to " + str(new_temp) + "F.")
         return new_temp
 
-# adds all values to temperature_list_temp
-selectTable("*", "RECORD_TEMPERATURE")
-
-# isolates number and appends to temperature_list
-temperaturelist_strip(temperature_list_temp)
-
-# prints temperature_reading column
-# print(temperature_list)
-
-# prints average temperature
-print("The average is "+ str(average(temperature_list)) + " degrees Farenheit.")
-print("It is also " + str(tempConvert('c', average(temperature_list))) + " degrees Celsius.")
+# Prints average temperature of 'columns_values_iso' in C 
+print("It is also " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.")
