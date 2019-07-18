@@ -17,19 +17,19 @@ column_values = []
 column_values_iso = []
 
 # 'tablename' is the name of the table
-# 'columns' is what columns you want to select
+# 'column_num' is the number of the column that is selected
 # 'list' is the list the values are appended to
-def selectTable (tablename, columns, list):
+def selectTable (tablename, column_num, list):
     cursorObj.execute(
-        "select " + columns + " from " + tablename
+        "select * from " + tablename
     )
     records = cursorObj.fetchall()
     for row in records:
-        list.append(row[2])
+        list.append(row[column_num])
     IOTdb.commit()
 
 # Adds all values from 'RECORD_TEMPERAURE' to column_values
-selectTable("RECORD_TEMPERATURE", "*", column_values)
+selectTable("RECORD_TEMPERATURE", 2, column_values)
 
 # Isolates value from 'list'
 # Appends value to 'list_append'
