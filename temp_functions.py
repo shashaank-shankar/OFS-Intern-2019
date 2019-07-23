@@ -52,8 +52,9 @@ def average (list):
     average = round(sum/count, 2)
     return average
 
-# Prints average temperature of 'columns_values_iso' in F
+# Prints average temperature of 'columns_values_iso' in F and C
 print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit")
+print("and " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.\n")
 
 # Converts temperature to either F or C
 def tempConvert (type, temperature):
@@ -68,5 +69,16 @@ def tempConvert (type, temperature):
         new_temp = round(new_temp, 2.0)
         return new_temp
 
-# Prints average temperature of 'columns_values_iso' in C 
-print("and " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.")
+#Find the min value
+def min_function(list):
+    min_value = None
+    for value in list:
+        if not min_value:
+            min_value = value
+        elif value < min_value:
+            min_value = value
+    return min_value
+
+# Prints the minimum temperature of 'columns_values_iso' in F and C
+print("The minimum temperature is " + min_function(column_values_iso) + " degrees Farenheit")
+print("and " + str(tempConvert('c', float(min_function(column_values_iso)))) + " degrees Celsius.")
