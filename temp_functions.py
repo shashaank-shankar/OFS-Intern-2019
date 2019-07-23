@@ -42,20 +42,6 @@ def value_strip (list, list_append):
 # Isolates temperature from 'column_values' and appends to 'column_values_iso'
 value_strip(column_values, column_values_iso)
 
-# Returns average of values in 'list'
-def average (list):
-    sum = 0
-    count = 0
-    for value in list:
-        sum = sum + float(value)
-        count += 1
-    average = round(sum/count, 2)
-    return average
-
-# Prints average temperature of 'columns_values_iso' in F and C
-print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit")
-print("and " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.\n")
-
 # Converts temperature to either F or C
 def tempConvert (type, temperature):
     if type.upper() == "C":
@@ -69,6 +55,21 @@ def tempConvert (type, temperature):
         new_temp = round(new_temp, 2.0)
         return new_temp
 
+# Returns average of values in 'list'
+def average (list):
+    sum = 0
+    count = 0
+    for value in list:
+        sum = sum + float(value)
+        count += 1
+    average = round(sum/count, 2)
+    return average
+
+# Prints average temperature of 'columns_values_iso' in F and C
+print("\nAVERAGE:")
+print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit")
+print("and " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.")
+
 #Find the min value
 def min_function(list):
     min_value = None
@@ -80,5 +81,21 @@ def min_function(list):
     return min_value
 
 # Prints the minimum temperature of 'columns_values_iso' in F and C
+print("\nMINIMUM:")
 print("The minimum temperature is " + min_function(column_values_iso) + " degrees Farenheit")
-print("and " + str(tempConvert('c', float(min_function(column_values_iso)))) + " degrees Celsius.")
+print("and " + str(tempConvert('c', float(min_function(column_values_iso)))) + " degrees Celsius.\n")
+
+# Find the max value
+def max_function(list):
+    max_value = None
+    for value in list:
+        if not max_value:
+            max_value = value
+        elif value > max_value:
+            max_value = value
+    return max_value
+
+# Prints the maximum temperature of 'columns_values_iso' in F and C
+print('\nMAXIMUM:')
+print("The minimum temperature is " + max_function(column_values_iso) + " degrees Farenheit")
+print("and " + str(tempConvert('c', float(max_function(column_values_iso)))) + " degrees Celsius.\n")
