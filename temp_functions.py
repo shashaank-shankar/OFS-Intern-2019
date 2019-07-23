@@ -53,7 +53,7 @@ def average (list):
     return average
 
 # Prints average temperature of 'columns_values_iso' in F
-print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit.")
+print("The average is "+ str(average(column_values_iso)) + " degrees Farenheit")
 
 # Converts temperature to either F or C
 def tempConvert (type, temperature):
@@ -69,4 +69,4 @@ def tempConvert (type, temperature):
         return new_temp
 
 # Prints average temperature of 'columns_values_iso' in C 
-print("It is also " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.")
+print("and " + str(tempConvert('c', average(column_values_iso))) + " degrees Celsius.")
